@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/data.js" ></script>
+    <script type="text/javascript" src="./scripts/lang.js" ></script>
+    <script type="text/javascript" src="./scripts/weather.js" ></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="icon" type="image/png" href="./images/rain.png">
+  </head>
+  <body id="main">
+    <h1 class="centerText"><label id="ffxivWeatherForecastLabel"></label></h1>
+
+    <div class="centerText default-margin-bottom">
+      <button onclick="langChangeHandler('en')">English</button>
+      <button onclick="langChangeHandler('ja')">日本語</button>
+    </div>
+    
+    <div class="centerText default-margin-bottom">
+      <strong><label id="areaLabel"></label></strong>
+      <select id="areaSelect" onchange="onAreaChangeHandler(this)"></select>
+    </div>
+
+    <div class="centerText default-margin-bottom">
+      <strong><label id="targetWeatherLabel"></label></strong>
+      <div id="targetWeatherOptions" class="flexbox flexbox-horizontal-center"></div>
+    </div>
+
+    <div class="centerText default-margin-bottom">
+      <strong><label id="precedingWeatherLabel"></label></strong>
+      <div id="precedingWeatherOptions" class="flexbox flexbox-horizontal-center"></div>
+    </div>
+
+    <div class="centerText default-margin-bottom">
+      <div><strong><label id="timeLabel"></label></strong></div>
+      <label for="start00" class="default-margin-right"><input type="checkbox" id="start00" name="start00" class="small-margin-right" checked>00:00 - 07:59</label>
+      <label for="start08" class="default-margin-right"><input type="checkbox" id="start08" name="start08" class="small-margin-right" checked>08:00 - 15:59</label>
+      <label for="start16"><input type="checkbox" id="start16" name="start16" class="small-margin-right" checked>16:00 - 23:59</label>
+    </div>
+
+    <div class="centerText accordion">
+        <input type="checkbox" id="accordion-advanced" name="accordion-checkbox" hidden>
+        <label class="accordion-header" for="accordion-advanced">
+          <i class="icon icon-arrow-right mr-1"></i>
+          <strong id="advancedOptionsLabel"></strong>
+        </label>
+        <div class="accordion-body">
+          <div class="default-margin-bottom">
+            <label id="maximumNumberLabel"></label>
+            <input id="maximumNumber" type="number" value="10">
+          </div>
+          <div class="default-margin-bottom">
+            <label id="maximumCyclesLabel"></label>
+            <input id="maximumCycles" type="number" value="100000">
+          </div>
+        </div>
+      </div>
+
+    <div class="centerText">
+      <button id="findWeatherButton" onclick="findWeatherOnClickHandler()"></button>
+    </div>
+
+    <hr class="horizontalHalfWidth">
+
+    <table class="centerTable table table-striped table-hover resultTable default-margin-bottom">
+      <thead>
+        <tr>
+          <th><label id="previousWeatherHeader"></label></th>
+          <th><label id="currentWeatherHeader"></label></th>
+          <th><label id="eorzeaTimeHeader"></label></th>
+          <th><label id="localTimeHeader"></label></th>
+        </tr>
+      </thead>
+      <tbody id="resultBody"></tbody>
+    </table>
+    <script type="text/javascript" src="./scripts/main.js" ></script>
+  </body>
+</html>

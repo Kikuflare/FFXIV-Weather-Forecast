@@ -1,0 +1,36 @@
+.flexbox {
+  display: flex;
+}
+
+.flexbox-horizontal-center {
+  justify-content: center;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.default-margin-bottom {
+  margin-bottom: 10px;
+}
+
+.default-margin-right {
+  margin-right: 10px;
+}
+
+.centerTable {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.horizontalHalfWidth {
+  width: 50%;
+}
+
+.small-margin-right {
+  margin-right: 0.3em;
+}
+
+.resultTable {
+  max-width: 1000px;
+}
