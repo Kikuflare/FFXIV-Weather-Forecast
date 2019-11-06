@@ -101,9 +101,19 @@ const renderWeatherCheckboxes = (id, lang, area) => {
 
   // Add the weather options if an area has been selected
   if (area) {
+    const seen = {}; // prevent duplicates
+
     for (const weather of weatherData[area]) {
       const weatherName = weather.name;
       const name = id + weatherName; // Unique identifier for the checkbox
+
+      // Check if the weather has already appeared and skip it
+      if (seen[weatherName]) {
+        continue;
+      }
+      else {
+        seen[weatherName] = true;
+      }
 
       // Create the checkbox
       const checkboxElement = document.createElement('input');
