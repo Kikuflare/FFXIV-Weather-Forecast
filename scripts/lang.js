@@ -98,6 +98,12 @@ const langMap = {
       precedingWeatherLabel: 'Preceding Weather',
       timeLabel: 'Eorzea Time',
       findWeather: 'Find Weather',
+      addWeatherConditions: 'Add Weather Conditions',
+      areaConditionsHeader: 'Area',
+      targetWeatherConditionsHeader: 'Target Weather',
+      previousWeatherConditionsHeader: 'Previous Weather',
+      eorzeaTimeConditionsHeader: 'Eorzea Time',
+      areaHeader: 'Area',
       previousWeatherHeader: 'Previous Weather',
       currentWeatherHeader: 'Current Weather',
       eorzeaTimeHeader: 'Eorzea Time',
@@ -105,7 +111,8 @@ const langMap = {
       advancedOptionsLabel: 'Advanced Options',
       maximumNumberLabel: 'Maximum number',
       maximumCyclesLabel: 'Maximum cycles',
-      noResultsFoundLabel: 'No results found.'
+      noResultsFoundLabel: 'No results found.',
+      noConditionsMessage: 'Please add a weather condition.'
     }
   },
   ja: {
@@ -192,6 +199,12 @@ const langMap = {
       precedingWeatherLabel: '直前の天候',
       timeLabel: 'エオルゼア時間',
       findWeather: '天候を検索',
+      addWeatherConditions: '天気都合を追加',
+      areaConditionsHeader: 'エリア',
+      targetWeatherConditionsHeader: '希望の天候',
+      previousWeatherConditionsHeader: '直前の天候',
+      eorzeaTimeConditionsHeader: 'エオルゼア時間',
+      areaHeader: 'エリア',
       previousWeatherHeader: '直前の天候',
       currentWeatherHeader: '現在の天候',
       eorzeaTimeHeader: 'エオルゼア時間',
@@ -199,7 +212,8 @@ const langMap = {
       advancedOptionsLabel: '詳細オプション',
       maximumNumberLabel: '最大数',
       maximumCyclesLabel: '最大サイクル',
-      noResultsFoundLabel: '結果が見つかりませんでした。'
+      noResultsFoundLabel: '結果が見つかりませんでした。',
+      noConditionsMessage: '天気都合を追加してください。'
     }
   }
 };

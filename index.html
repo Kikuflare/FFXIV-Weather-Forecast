@@ -16,13 +16,13 @@
     <h1 class="centerText"><label id="ffxivWeatherForecastLabel"></label></h1>
 
     <div class="centerText default-margin-bottom">
-      <button onclick="langChangeHandler('en')">English</button>
-      <button onclick="langChangeHandler('ja')">日本語</button>
+      <button class="btn" onclick="langChangeHandler('en')">English</button>
+      <button class="btn" onclick="langChangeHandler('ja')">日本語</button>
     </div>
     
     <div class="centerText default-margin-bottom">
-      <strong><label id="areaLabel"></label></strong>
-      <select id="areaSelect" onchange="onAreaChangeHandler(this)"></select>
+      <div><strong class="default-margin-right"><label id="areaLabel"></label></strong></div>
+      <select class="form-select" id="areaSelect" onchange="onAreaChangeHandler(this)"></select>
     </div>
 
     <div class="centerText default-margin-bottom">
@@ -37,12 +37,49 @@
 
     <div class="centerText default-margin-bottom">
       <div><strong><label id="timeLabel"></label></strong></div>
-      <label for="start00" class="default-margin-right"><input type="checkbox" id="start00" name="start00" class="small-margin-right" checked>00:00 - 07:59</label>
-      <label for="start08" class="default-margin-right"><input type="checkbox" id="start08" name="start08" class="small-margin-right" checked>08:00 - 15:59</label>
-      <label for="start16"><input type="checkbox" id="start16" name="start16" class="small-margin-right" checked>16:00 - 23:59</label>
+      <div class="flexbox flexbox-horizontal-center">
+        <label for="start00" class="form-checkbox default-margin-right">
+          <input type="checkbox" id="start00" name="start00" class="small-margin-right">
+          <i class="form-icon"></i>
+          00:00 - 07:59
+        </label>
+        <label for="start08" class="form-checkbox default-margin-right">
+          <input type="checkbox" id="start08" name="start08" class="small-margin-right">
+          <i class="form-icon"></i>
+          08:00 - 15:59
+        </label>
+        <label for="start16" class="form-checkbox">
+          <input type="checkbox" id="start16" name="start16" class="small-margin-right">
+          <i class="form-icon"></i>
+          16:00 - 23:59
+        </label>
+      </div>
+      
     </div>
 
-    <div class="centerText accordion">
+    <div class="centerText">
+      <button class="btn btn-primary" id="addWeatherConditionsButton" onclick="addWeatherConditions()"></button>
+    </div>
+
+    <hr class="horizontalHalfWidth">
+
+    <table class="centerTable table table-striped table-hover resultTable default-margin-bottom">
+      <thead>
+        <tr>
+          <th><label id="areaConditionsHeader"></label></th>
+          <th><label id="previousWeatherConditionsHeader"></label></th>
+          <th><label id="targetWeatherConditionsHeader"></label></th>
+          <th><label id="eorzeaTimeConditionsHeader"></label></th>
+          <th><label id="deleteConditionsHeader"></label></th>
+        </tr>
+      </thead>
+      <tbody id="conditionsListBody"></tbody>
+    </table>
+
+    <hr class="horizontalHalfWidth">
+
+    <div class="flexbox flexbox-horizontal-center">
+      <div class="centerText accordion">
         <input type="checkbox" id="accordion-advanced" name="accordion-checkbox" hidden>
         <label class="accordion-header" for="accordion-advanced">
           <i class="icon icon-arrow-right mr-1"></i>
@@ -59,16 +96,17 @@
           </div>
         </div>
       </div>
+    </div>
+    
 
     <div class="centerText">
-      <button id="findWeatherButton" onclick="findWeatherOnClickHandler()"></button>
+      <button class="btn btn-primary" id="findWeatherButton" onclick="findWeatherOnClickHandler()"></button>
     </div>
-
-    <hr class="horizontalHalfWidth">
 
     <table class="centerTable table table-striped table-hover resultTable default-margin-bottom">
       <thead>
         <tr>
+          <th><label id="areaHeader"></label></th>
           <th><label id="previousWeatherHeader"></label></th>
           <th><label id="currentWeatherHeader"></label></th>
           <th><label id="eorzeaTimeHeader"></label></th>
@@ -78,5 +116,10 @@
       <tbody id="resultBody"></tbody>
     </table>
     <script type="text/javascript" src="./scripts/main.js" ></script>
+
+    <footer class="centerText default-margin-bottom">
+      <div>Created by <a href="https://na.finalfantasyxiv.com/lodestone/character/11519702/">Kiku Ichimonji</a> @ Kujata</div>
+      <div>Suggestions or feedback: <a href="https://github.com/Kikugumo/FFXIV-Weather-Forecast/issues">Github</a></div>
+    </footer>
   </body>
 </html>

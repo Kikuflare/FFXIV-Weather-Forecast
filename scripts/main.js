@@ -17,6 +17,22 @@ const render = lang => {
 
   renderWeatherCheckboxes('targetWeatherOptions', lang, document.getElementById('areaSelect').value);
   renderWeatherCheckboxes('precedingWeatherOptions', lang, document.getElementById('areaSelect').value);
+
+  // Restore saved settings from localStorage
+  let savedConditions = JSON.parse(localStorage.getItem('savedConditions'));
+
+  if (!savedConditions) {
+    savedConditions = [];
+    localStorage.setItem('savedConditions', JSON.stringify(savedConditions));
+  }
+  renderConditions(savedConditions);
+
+  const maximumNumberInput = document.getElementById('maximumNumber');
+  maximumNumberInput.value = localStorage.getItem('maximumNumber') ? localStorage.getItem('maximumNumber') : 10;
+
+  const maximumCyclesInput = document.getElementById('maximumCycles');
+  maximumCyclesInput.value = localStorage.getItem('maximumCycles') ? localStorage.getItem('maximumCycles') : 100000;
+
 };
 
 /**
@@ -30,7 +46,14 @@ const renderLabels = lang => {
   document.getElementById('areaLabel').innerHTML = langMap[lang].web.areaLabel + ': ';
   document.getElementById('timeLabel').innerHTML = langMap[lang].web.timeLabel + ': ';
   document.getElementById('findWeatherButton').innerHTML = langMap[lang].web.findWeather;
+  document.getElementById('addWeatherConditionsButton').innerHTML = langMap[lang].web.addWeatherConditions;
 
+  document.getElementById('areaConditionsHeader').innerHTML = langMap[lang].web.areaConditionsHeader;
+  document.getElementById('targetWeatherConditionsHeader').innerHTML = langMap[lang].web.targetWeatherConditionsHeader;
+  document.getElementById('previousWeatherConditionsHeader').innerHTML = langMap[lang].web.previousWeatherConditionsHeader;
+  document.getElementById('eorzeaTimeConditionsHeader').innerHTML = langMap[lang].web.eorzeaTimeConditionsHeader;
+
+  document.getElementById('areaHeader').innerHTML = langMap[lang].web.areaHeader;
   document.getElementById('previousWeatherHeader').innerHTML = langMap[lang].web.previousWeatherHeader;
   document.getElementById('currentWeatherHeader').innerHTML = langMap[lang].web.currentWeatherHeader;
   document.getElementById('eorzeaTimeHeader').innerHTML = langMap[lang].web.eorzeaTimeHeader;
@@ -121,7 +144,8 @@ const renderWeatherCheckboxes = (id, lang, area) => {
       checkboxElement.id = name;
       checkboxElement.name = name;
       checkboxElement.classList.add('small-margin-right', id);
-      id === 'precedingWeatherOptions' ? checkboxElement.setAttribute('checked', true) : null;
+      const checkIconElement = document.createElement('i');
+      checkIconElement.classList.add('form-icon');
 
       // Grab the weather icon
       const imageElement = document.createElement('img');
@@ -131,8 +155,9 @@ const renderWeatherCheckboxes = (id, lang, area) => {
       // Create the label
       const labelElement = document.createElement('label');
       labelElement.htmlFor = name;
-      labelElement.classList.add('default-margin-right', 'flexbox');
+      labelElement.classList.add('default-margin-right', 'flexbox', 'form-checkbox');
       labelElement.appendChild(checkboxElement);
+      labelElement.appendChild(checkIconElement);
       labelElement.appendChild(imageElement);
       labelElement.innerHTML = labelElement.innerHTML + langMap[lang].weather[weatherName];
 
@@ -172,14 +197,18 @@ const langChangeHandler = lang => {
  */
 const getWeatherList = (collection, id) => {
   const weatherList = [];
+  const uncheckedList = [];
 
   for (const element of collection) {
     if (element.checked) {
       weatherList.push(element.id.replace(id, ''));
     }
+    else {
+      uncheckedList.push(element.id.replace(id, ''));
+    }
   }
 
-  return weatherList;
+  return weatherList.length > 0 ? weatherList : uncheckedList;
 };
 
 /**
@@ -187,12 +216,13 @@ const getWeatherList = (collection, id) => {
  */
 const getTargetTimeList = () => {
   const targetTimeList = [];
+  const uncheckedList = [];
   
-  document.getElementById('start00').checked ? targetTimeList.push('0:00') : null;
-  document.getElementById('start08').checked ? targetTimeList.push('8:00') : null;
-  document.getElementById('start16').checked ? targetTimeList.push('16:00') : null;
+  document.getElementById('start00').checked ? targetTimeList.push('0:00') : uncheckedList.push('0:00');
+  document.getElementById('start08').checked ? targetTimeList.push('8:00') : uncheckedList.push('8:00');
+  document.getElementById('start16').checked ? targetTimeList.push('16:00') : uncheckedList.push('16:00');
 
-  return targetTimeList;
+  return targetTimeList.length > 0 ? targetTimeList : uncheckedList;
 }
 
 /**
@@ -216,7 +246,20 @@ const renderResults = results => {
   if (results.length > 0) {
     for (const entry of results) {
       const tableRow = document.createElement('tr');
-      
+
+      // Area
+      const areaCell = document.createElement('td');
+      const areaCellContents = document.createElement('div');
+      const areaIconElement = document.createElement('img');
+      areaIconElement.src = `./images/area_icons/${areaData[entry.area]}.png`;
+      areaIconElement.height = 30;
+      areaIconElement.width = 30;
+      areaIconElement.classList.add('default-margin-right', 'area-icon-rounded');
+      areaCellContents.appendChild(areaIconElement);
+      areaCellContents.innerHTML = areaCellContents.innerHTML + langMap[selectedLang].area[entry.area];
+      areaCellContents.classList.add('flexbox');
+      areaCell.appendChild(areaCellContents);
+
       // Previous Weather
       const previousWeatherCell = document.createElement('td');
       const previousWeatherImageElement = document.createElement('img');
@@ -247,6 +290,7 @@ const renderResults = results => {
       const localTimeCell = document.createElement('td');
       localTimeCell.innerHTML = entry.localTime;
   
+      tableRow.appendChild(areaCell);
       tableRow.appendChild(previousWeatherCell);
       tableRow.appendChild(currentWeatherCell);
       tableRow.appendChild(eorzeaTimeCell);
@@ -259,7 +303,7 @@ const renderResults = results => {
     // Put a message in the table if there weren't any entries in the result
     const tableRow = document.createElement('tr');
     const noResultsFound = document.createElement('td');
-    noResultsFound.colSpan = 4;
+    noResultsFound.colSpan = 5;
     noResultsFound.classList.add('centerText');
     noResultsFound.innerHTML = langMap[selectedLang].web.noResultsFoundLabel;
 
@@ -273,51 +317,80 @@ const renderResults = results => {
  * and returns an array containing the results
  */
 const findWeather = () => {
-  const area = document.getElementById('areaSelect').value;
-  const targetWeather = getWeatherList(document.getElementsByClassName('targetWeatherOptions'), 'targetWeatherOptions');
-  const precedingWeather = getWeatherList(document.getElementsByClassName('precedingWeatherOptions'), 'precedingWeatherOptions');
-  const targetTime = getTargetTimeList();
-
-  const data = weatherData[area];
-
-  let weatherMap = []; // An array mapping index to weather names
-
-  for (const weather of data) {
-    weatherMap = weatherMap.concat(Array(weather.chance).fill(weather.name));
+  // Retrieve desired weather conditions
+  let savedConditions = JSON.parse(localStorage.getItem('savedConditions'));
+  
+  if (!savedConditions) {
+    return [];
   }
 
-  let timestamp = Date.now();
 
+  // Generate the weather map for each specified area
+  const weatherMap = {};
+
+  for (const entry of savedConditions) {
+    const data = weatherData[entry.area];
+    let result = [];
+
+    for (const weather of data) {
+      result = result.concat(Array(weather.chance).fill(weather.name));
+    }
+
+    weatherMap[entry.area] = result;
+  }
+
+  // Perform the search
   const results = [];
+  let timestamp = Date.now();
+  const previousWeather = {};
 
-  let previousWeather = weatherMap[calculateWeatherValue(timestamp - EORZEA_8_HOUR)];
+  for (const entry of savedConditions) {
+    previousWeather[entry.area] = weatherMap[entry.area][calculateWeatherValue(timestamp - EORZEA_8_HOUR)];
+  }
 
   let count = 0;
   const maximumNumber = document.getElementById('maximumNumber').value;
   const maximumCycles = document.getElementById('maximumCycles').value;
 
   for (var i = 0; i < maximumCycles; i++) {
+    // Terminate early once the maximum is reached
+    if (count >= maximumNumber) {
+      break;
+    }
+
     const weatherValue = calculateWeatherValue(timestamp);
-    const weather = weatherMap[weatherValue];
     const eorzeaIntervalStart = convertToNearestEorzeanIntervalStart(timestamp);
 
-    if (targetWeather.includes(weather) && precedingWeather.includes(previousWeather) && targetTime.includes(eorzeaIntervalStart)) {
-      count++;
-
-      results.push({
-        previousWeather: previousWeather,
-        currentWeather: weather,
-        eorzeaTime: eorzeaIntervalStart,
-        localTime: convertToNearestRealIntervalStart(timestamp)
-      });
-
+    for (const entry of savedConditions) {
       // Terminate early once the maximum is reached
       if (count >= maximumNumber) {
         break;
       }
+
+      const weather = weatherMap[entry.area][weatherValue];
+
+      if (entry.targetWeather.includes(weather)
+        && entry.precedingWeather.includes(previousWeather[entry.area])
+        && entry.targetTime.includes(eorzeaIntervalStart)) {
+        count++;
+  
+        results.push({
+          area: entry.area,
+          previousWeather: previousWeather[entry.area],
+          currentWeather: weather,
+          eorzeaTime: eorzeaIntervalStart,
+          localTime: convertToNearestRealIntervalStart(timestamp)
+        });
+  
+        // Terminate early once the maximum is reached
+        if (count >= maximumNumber) {
+          break;
+        }
+      }
+
+      previousWeather[entry.area] = weather;
     }
 
-    previousWeather = weather;
     timestamp += EORZEA_8_HOUR;
   }
 
@@ -331,4 +404,135 @@ const findWeatherOnClickHandler = () => {
   renderResults(findWeather());
 };
 
+/**
+ * Adds the conditions as entered in the forms to the list of conditions
+ */
+const addWeatherConditions = () => {
+  let savedConditions = JSON.parse(localStorage.getItem('savedConditions'));
+
+  if (!savedConditions) {
+    savedConditions = [];
+  }
+
+  const conditions = {
+    area: document.getElementById('areaSelect').value,
+    targetWeather: getWeatherList(document.getElementsByClassName('targetWeatherOptions'), 'targetWeatherOptions'),
+    precedingWeather: getWeatherList(document.getElementsByClassName('precedingWeatherOptions'), 'precedingWeatherOptions'),
+    targetTime: getTargetTimeList()
+  };
+
+  savedConditions.push(conditions);
+
+  localStorage.setItem('savedConditions', JSON.stringify(savedConditions));
+
+  renderConditions(savedConditions);
+};
+
+/**
+ * Renders the desired weather conditions into a table on the page
+ * @param {*} conditions An array of objects with the following structure:
+ * {
+      area: string,
+      targetWeather: array,
+      precedingWeather: array,
+      targetTime: array
+    }
+ */
+const renderConditions = conditions => {
+  // Reset the element before rendering it
+  const conditionsListBody = document.getElementById('conditionsListBody');
+
+  while (conditionsListBody.hasChildNodes()) {
+    conditionsListBody.removeChild(conditionsListBody.firstChild);
+  }
+
+  if (conditions.length > 0) {
+    for (const [index, entry] of conditions.entries()) {
+      const tableRow = document.createElement('tr');
+  
+      // Area
+      const areaCell = document.createElement('td');
+      const areaCellContents = document.createElement('div');
+      const areaIconElement = document.createElement('img');
+      areaIconElement.src = `./images/area_icons/${areaData[entry.area]}.png`;
+      areaIconElement.height = 30;
+      areaIconElement.width = 30;
+      areaIconElement.classList.add('default-margin-right', 'area-icon-rounded');
+      areaCellContents.appendChild(areaIconElement);
+      areaCellContents.innerHTML = areaCellContents.innerHTML + langMap[selectedLang].area[entry.area];
+      areaCellContents.classList.add('flexbox');
+      areaCell.appendChild(areaCellContents);
+  
+      // Preceding Weather
+      const precedingWeatherCell = document.createElement('td');
+  
+      for (const weather of entry.precedingWeather) {
+        const precedingWeatherImageElement = document.createElement('img');
+        precedingWeatherImageElement.src = `./images/${weather}.png`;
+        precedingWeatherImageElement.classList.add('small-margin-right');
+        precedingWeatherImageElement.setAttribute('title', langMap[selectedLang].weather[weather]);
+        precedingWeatherCell.appendChild(precedingWeatherImageElement);
+      }
+  
+      // Target Weather
+      const targetWeatherCell = document.createElement('td');
+  
+      for (const weather of entry.targetWeather) {
+        const targetWeatherImageElement = document.createElement('img');
+        targetWeatherImageElement.src = `./images/${weather}.png`;
+        targetWeatherImageElement.classList.add('small-margin-right');
+        targetWeatherImageElement.setAttribute('title', langMap[selectedLang].weather[weather]);
+        targetWeatherCell.appendChild(targetWeatherImageElement);
+      }
+  
+      // Eorzea Time
+      const eorzeaTimeCell = document.createElement('td');
+      eorzeaTimeCell.innerHTML = entry.targetTime.join(', ');
+  
+      // Delete Button
+      const deleteCell = document.createElement('td');
+      const deleteButton = document.createElement('button');
+      deleteButton.classList.add('btn', 'btn-error');
+      deleteButton.innerHTML = '🗙';
+      deleteButton.onclick = () => {
+        conditions.splice(index, 1);
+        localStorage.setItem('savedConditions', JSON.stringify(conditions));
+        renderConditions(conditions); // re-render component
+      };
+      deleteCell.appendChild(deleteButton);
+  
+      // Add the elements to the table
+      tableRow.appendChild(areaCell);
+      tableRow.appendChild(precedingWeatherCell);
+      tableRow.appendChild(targetWeatherCell);
+      tableRow.appendChild(eorzeaTimeCell);
+      tableRow.appendChild(deleteCell);
+  
+      conditionsListBody.appendChild(tableRow);
+    }
+  }
+  else {
+    // Put a message in the table to inform the user that one or more conditions should be added
+    const tableRow = document.createElement('tr');
+    const noConditionsMessage = document.createElement('td');
+    noConditionsMessage.colSpan = 4;
+    noConditionsMessage.classList.add('centerText');
+    noConditionsMessage.innerHTML = langMap[selectedLang].web.noConditionsMessage;
+
+    tableRow.appendChild(noConditionsMessage);
+    conditionsListBody.appendChild(tableRow);
+  }
+};
+
 render(selectedLang);
+
+// Attach handlers to inputs
+const maximumNumberInput = document.getElementById('maximumNumber');
+maximumNumberInput.onchange = event => {
+  localStorage.setItem('maximumNumber', event.target.value);
+}
+
+const maximumCyclesInput = document.getElementById('maximumCycles');
+maximumCyclesInput.onchange = event => {
+  localStorage.setItem('maximumCycles', event.target.value);
+}

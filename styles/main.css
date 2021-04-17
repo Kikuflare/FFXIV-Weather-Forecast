@@ -1,5 +1,5 @@
 .flexbox {
-  display: flex;
+  display: flex !important;
 }
 
 .flexbox-horizontal-center {
@@ -8,6 +8,10 @@
 
 .centerText {
   text-align: center;
+}
+
+.flexitem-vertically-center {
+  align-items: center;
 }
 
 .default-margin-bottom {
@@ -33,4 +37,16 @@
 
 .resultTable {
   max-width: 1000px;
+}
+
+.flexbox > img {
+  align-self: center;
+}
+
+.area-icon-rounded {
+  border-radius: 5px;
+}
+
+#areaSelect {
+  width: 300px;
 }
