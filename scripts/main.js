@@ -317,18 +317,47 @@ const renderResults = results => {
  * and returns an array containing the results
  */
 const findWeather = () => {
+  const results = [];
+
   // Retrieve desired weather conditions
   let savedConditions = JSON.parse(localStorage.getItem('savedConditions'));
 
   if (!savedConditions) {
-    return [];
+    return results;
   }
 
-
   // Generate the weather map for each specified area
-  const weatherMap = {};
+  const weatherMap = generateWeatherMap(savedConditions);
 
-  for (const entry of savedConditions) {
+  // Perform the search
+  const maximumNumber = document.getElementById('maximumNumber').value;
+  const maximumCycles = document.getElementById('maximumCycles').value;
+  const startDate = Date.now();
+
+  for (let i = 0; i < maximumCycles; i++) {
+    const timestamp = startDate + i * EORZEA_8_HOUR;
+    const windows = iterateConditions(savedConditions, timestamp, weatherMap);
+
+    for (const window of windows) {
+      results.push(window);
+
+      if (results.length >= maximumNumber) {
+        return results;
+      }
+    }
+  }
+
+  return results;
+};
+
+/**
+ * Creates an array of strings where the index of each item corresponds to the
+ * FFXIV weather value
+ */
+const generateWeatherMap = conditions => {
+  const output = {};
+
+  for (const entry of conditions) {
     const data = weatherData[entry.area];
     let result = [];
 
@@ -336,73 +365,66 @@ const findWeather = () => {
       result = result.concat(Array(weather.chance).fill(weather.name));
     }
 
-    weatherMap[entry.area] = result;
+    output[entry.area] = result;
   }
 
-  // Perform the search
+  return output;
+};
+
+// Checks each condition and area, returning an array of windows
+const iterateConditions = (conditions, timestamp, weatherMap) => {
   const results = [];
-  let timestamp = Date.now();
-  const previousWeather = {};
+  const seen = {};
 
-  for (const [index, entry] of savedConditions.entries()) {
-    previousWeather[index] = weatherMap[entry.area][calculateWeatherValue(timestamp - EORZEA_8_HOUR)];
-  }
-
-  let count = 0;
-  const maximumNumber = document.getElementById('maximumNumber').value;
-  const maximumCycles = document.getElementById('maximumCycles').value;
-
-  for (var i = 0; i < maximumCycles; i++) {
-    // Terminate early once the maximum is reached
-    if (count >= maximumNumber) {
-      break;
+  for (const entry of conditions) {
+    // Skip checking this condition if the current window already satisfies
+    // another condition with the same area (this prevents duplicate results)
+    if (seen[entry.area]) {
+      continue;
     }
 
-    const weatherValue = calculateWeatherValue(timestamp);
-    const eorzeaIntervalStart = convertToNearestEorzeanIntervalStart(timestamp);
-    const seen = {};
+    const window = {
+      currentWeather: weatherMap[entry.area][calculateWeatherValue(timestamp)],
+      previousWeather: weatherMap[entry.area][calculateWeatherValue(timestamp - EORZEA_8_HOUR)],
+      eorzeaTime: convertToNearestEorzeanIntervalStart(timestamp)
+    };
 
-    for (const [index, entry] of savedConditions.entries()) {
-      // Terminate early once the maximum is reached
-      if (count >= maximumNumber) {
-        break;
-      }
+    if (testWeather(entry, window)) {
+      seen[entry.area] = true; // mark this window as already added to results
 
-      // Skip checking this condition if the current window already satisfies
-      // another condition with the same area (this prevents duplicate results)
-      if (seen[entry.area]) {
-        continue;
-      }
-
-      const weather = weatherMap[entry.area][weatherValue];
-
-      if (entry.targetWeather.includes(weather)
-        && entry.precedingWeather.includes(previousWeather[index])
-        && entry.targetTime.includes(eorzeaIntervalStart)) {
-        count++;
-        seen[entry.area] = true; // mark this window as already added to results
-  
-        results.push({
-          area: entry.area,
-          previousWeather: previousWeather[index],
-          currentWeather: weather,
-          eorzeaTime: eorzeaIntervalStart,
-          localTime: convertToNearestRealIntervalStart(timestamp)
-        });
-  
-        // Terminate early once the maximum is reached
-        if (count >= maximumNumber) {
-          break;
-        }
-      }
-
-      previousWeather[index] = weather;
+      results.push({
+        area: entry.area,
+        previousWeather: window.previousWeather,
+        currentWeather: window.currentWeather,
+        eorzeaTime: window.eorzeaTime,
+        localTime: convertToNearestRealIntervalStart(timestamp)
+      });
     }
-
-    timestamp += EORZEA_8_HOUR;
   }
 
   return results;
+};
+
+/**
+ * Checks if the window satisfies the conditions, returning true if all
+ * conditions match
+ * @param {*} conditions An object with the following structure:
+ * {
+      targetWeather: string,
+      precedingWeather: string,
+      targetTime: string
+    }
+    @param {*} window An object with the following structure:
+ * {
+      currentWeather: string,
+      previousWeather: string,
+      eorzeaTime: string
+    }
+ *  */ 
+const testWeather = (conditions, window) => {
+  return conditions.targetWeather.includes(window.currentWeather)
+    && conditions.precedingWeather.includes(window.previousWeather)
+    && conditions.targetTime.includes(window.eorzeaTime);
 };
 
 /**
