@@ -319,7 +319,7 @@ const renderResults = results => {
 const findWeather = () => {
   // Retrieve desired weather conditions
   let savedConditions = JSON.parse(localStorage.getItem('savedConditions'));
-  
+
   if (!savedConditions) {
     return [];
   }
@@ -344,8 +344,8 @@ const findWeather = () => {
   let timestamp = Date.now();
   const previousWeather = {};
 
-  for (const entry of savedConditions) {
-    previousWeather[entry.area] = weatherMap[entry.area][calculateWeatherValue(timestamp - EORZEA_8_HOUR)];
+  for (const [index, entry] of savedConditions.entries()) {
+    previousWeather[index] = weatherMap[entry.area][calculateWeatherValue(timestamp - EORZEA_8_HOUR)];
   }
 
   let count = 0;
@@ -361,7 +361,8 @@ const findWeather = () => {
     const weatherValue = calculateWeatherValue(timestamp);
     const eorzeaIntervalStart = convertToNearestEorzeanIntervalStart(timestamp);
 
-    for (const entry of savedConditions) {
+    // for (const entry of savedConditions) {
+    for (const [index, entry] of savedConditions.entries()) {
       // Terminate early once the maximum is reached
       if (count >= maximumNumber) {
         break;
@@ -370,13 +371,13 @@ const findWeather = () => {
       const weather = weatherMap[entry.area][weatherValue];
 
       if (entry.targetWeather.includes(weather)
-        && entry.precedingWeather.includes(previousWeather[entry.area])
+        && entry.precedingWeather.includes(previousWeather[index])
         && entry.targetTime.includes(eorzeaIntervalStart)) {
         count++;
   
         results.push({
           area: entry.area,
-          previousWeather: previousWeather[entry.area],
+          previousWeather: previousWeather[index],
           currentWeather: weather,
           eorzeaTime: eorzeaIntervalStart,
           localTime: convertToNearestRealIntervalStart(timestamp)
@@ -388,7 +389,7 @@ const findWeather = () => {
         }
       }
 
-      previousWeather[entry.area] = weather;
+      previousWeather[index] = weather;
     }
 
     timestamp += EORZEA_8_HOUR;
