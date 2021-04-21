@@ -360,12 +360,18 @@ const findWeather = () => {
 
     const weatherValue = calculateWeatherValue(timestamp);
     const eorzeaIntervalStart = convertToNearestEorzeanIntervalStart(timestamp);
+    const seen = {};
 
-    // for (const entry of savedConditions) {
     for (const [index, entry] of savedConditions.entries()) {
       // Terminate early once the maximum is reached
       if (count >= maximumNumber) {
         break;
+      }
+
+      // Skip checking this condition if the current window already satisfies
+      // another condition with the same area (this prevents duplicate results)
+      if (seen[entry.area]) {
+        continue;
       }
 
       const weather = weatherMap[entry.area][weatherValue];
@@ -374,6 +380,7 @@ const findWeather = () => {
         && entry.precedingWeather.includes(previousWeather[index])
         && entry.targetTime.includes(eorzeaIntervalStart)) {
         count++;
+        seen[entry.area] = true; // mark this window as already added to results
   
         results.push({
           area: entry.area,
