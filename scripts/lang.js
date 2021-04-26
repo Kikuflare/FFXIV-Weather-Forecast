@@ -109,8 +109,9 @@ const langMap = {
       eorzeaTimeHeader: 'Eorzea Time',
       localTimeHeader: 'Local Time',
       advancedOptionsLabel: 'Advanced Options',
-      maximumNumberLabel: 'Maximum number',
-      maximumCyclesLabel: 'Maximum cycles',
+      maximumNumberLabel: 'Maximum Number',
+      maximumCyclesLabel: 'Maximum Cycles',
+      customStartDateLabel: 'Custom Start Date',
       noResultsFoundLabel: 'No results found.',
       noConditionsMessage: 'Please add a weather condition.'
     }
@@ -212,6 +213,7 @@ const langMap = {
       advancedOptionsLabel: '詳細オプション',
       maximumNumberLabel: '最大数',
       maximumCyclesLabel: '最大サイクル',
+      customStartDateLabel: 'カスタム開始日',
       noResultsFoundLabel: '結果が見つかりませんでした。',
       noConditionsMessage: '天気都合を追加してください。'
     }

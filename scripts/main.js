@@ -6,6 +6,7 @@
 
 // Selected language from the localStorage
 let selectedLang = localStorage.getItem('selectedLang') ? localStorage.getItem('selectedLang') : 'en';
+let searchResults = [];
 
 /**
  * Creates various HTML elements and adds them to the page
@@ -33,6 +34,9 @@ const render = lang => {
   const maximumCyclesInput = document.getElementById('maximumCycles');
   maximumCyclesInput.value = localStorage.getItem('maximumCycles') ? localStorage.getItem('maximumCycles') : 100000;
 
+  if (searchResults.length > 0) {
+    renderResults(searchResults);
+  }
 };
 
 /**
@@ -62,6 +66,7 @@ const renderLabels = lang => {
   document.getElementById('advancedOptionsLabel').innerHTML = langMap[lang].web.advancedOptionsLabel;
   document.getElementById('maximumNumberLabel').innerHTML = langMap[lang].web.maximumNumberLabel;
   document.getElementById('maximumCyclesLabel').innerHTML = langMap[lang].web.maximumCyclesLabel;
+  document.getElementById('customStartDateLabel').innerHTML = langMap[lang].web.customStartDateLabel;
 
   // Don't render these if the area hasn't been selected yet
   if (document.getElementById('areaSelect').value) {
@@ -332,7 +337,7 @@ const findWeather = () => {
   // Perform the search
   const maximumNumber = document.getElementById('maximumNumber').value;
   const maximumCycles = document.getElementById('maximumCycles').value;
-  const startDate = Date.now();
+  const startDate = getStartDate();
 
   for (let i = 0; i < maximumCycles; i++) {
     const timestamp = startDate + i * EORZEA_8_HOUR;
@@ -431,7 +436,8 @@ const testWeather = (conditions, window) => {
  * Handler for the find weather button
  */
 const findWeatherOnClickHandler = () => {
-  renderResults(findWeather());
+  searchResults = findWeather();
+  renderResults(searchResults);
 };
 
 /**
@@ -554,15 +560,35 @@ const renderConditions = conditions => {
   }
 };
 
+/**
+ * Returns the unix timestamp of the current time, or on a specified date at
+ * 00:00 in the user's local timezone.
+ *  */ 
+const getStartDate = () => {
+  const isCustomStartDateEnabled = document.getElementById('customStartDateCheckbox').checked;
+  const customStartDateInput = document.getElementById('customStartDate');
+  const customStartDateString = customStartDateInput.value;
+
+  if (isCustomStartDateEnabled && customStartDateString) {
+    const customStartDate = new Date(customStartDateString);
+    const timestamp = customStartDate.getTime() + customStartDate.getTimezoneOffset() * 60 * 1000;
+
+    return timestamp;
+  }
+  else {
+    return Date.now();
+  }
+};
+
 render(selectedLang);
 
 // Attach handlers to inputs
 const maximumNumberInput = document.getElementById('maximumNumber');
 maximumNumberInput.onchange = event => {
   localStorage.setItem('maximumNumber', event.target.value);
-}
+};
 
 const maximumCyclesInput = document.getElementById('maximumCycles');
 maximumCyclesInput.onchange = event => {
   localStorage.setItem('maximumCycles', event.target.value);
-}
+};
