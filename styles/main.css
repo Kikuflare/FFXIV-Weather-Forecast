@@ -1,3 +1,7 @@
+#main {
+  padding: 10px;
+}
+
 .flexbox {
   display: flex !important;
 }

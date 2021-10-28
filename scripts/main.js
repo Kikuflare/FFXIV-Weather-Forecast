@@ -551,7 +551,7 @@ const renderConditions = conditions => {
     // Put a message in the table to inform the user that one or more conditions should be added
     const tableRow = document.createElement('tr');
     const noConditionsMessage = document.createElement('td');
-    noConditionsMessage.colSpan = 4;
+    noConditionsMessage.colSpan = 5;
     noConditionsMessage.classList.add('centerText');
     noConditionsMessage.innerHTML = langMap[selectedLang].web.noConditionsMessage;
 
