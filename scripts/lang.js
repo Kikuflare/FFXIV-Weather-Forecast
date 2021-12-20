@@ -68,7 +68,15 @@ const langMap = {
       amhAraeng: 'Amh Araeng',
       ilMheg: 'Il Mheg',
       theRaktikaGreatwood: 'The Rak\'tika Greatwood',
-      theTempest: 'The Tempest'
+      theTempest: 'The Tempest',
+      radzAtHan: 'Radz-at-Han',
+      thavnair: 'Thavnair',
+      garlemald: 'Garlemald',
+      oldSharlayan: 'Old Sharlayan',
+      labyrinthos: 'Labyrinthos',
+      mareLamentorum: 'Mare Lamentorum',
+      ultimaThule: 'Ultima Thule',
+      elpis: 'Elpis'
     },
     weather: {
       clouds: 'Clouds',
@@ -87,7 +95,9 @@ const langMap = {
       snow: 'Snow',
       blizzard: 'Blizzard',
       umbralWind: 'Umbral Wind',
-      umbralStatic: 'Umbral Static'
+      umbralStatic: 'Umbral Static',
+      moonDust: 'Moon Dust',
+      astromagneticStorm: 'Astromagnetic Storm'
     },
     web: {
       ffxivWeatherForecastLabel: 'FFXIV Weather Forecast',
@@ -170,7 +180,15 @@ const langMap = {
       amhAraeng: 'アム・アレーン',
       ilMheg: 'イル・メグ',
       theRaktikaGreatwood: 'ラケティカ大森林',
-      theTempest: 'テンペスト'
+      theTempest: 'テンペスト',
+      radzAtHan: 'ラザハン',
+      thavnair: 'サベネア島',
+      garlemald: 'ガレマルド',
+      oldSharlayan: 'オールド・シャーレアン',
+      labyrinthos: 'ラヴィリンソス',
+      mareLamentorum: '嘆きの海',
+      ultimaThule: 'ウルティマ・トゥーレ',
+      elpis: 'エルピス'
     },
     weather: {
       clouds: '曇り',
@@ -189,7 +207,9 @@ const langMap = {
       snow: '雪',
       blizzard: '吹雪',
       umbralWind: '霊風',
-      umbralStatic: '放電'
+      umbralStatic: '放電',
+      moonDust: '月砂塵',
+      astromagneticStorm: '磁気嵐'
     },
     web: {
       ffxivWeatherForecastLabel: 'FF14天気予報',

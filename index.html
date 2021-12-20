@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
     <title>FFXIV Weather Forecast</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Finds and displays weather in the MMORPG Final Fantasy XIV.">
+    <meta name="keywords" content="FFXIV, FF14, Weather, Forecast, Forecaster, 天気, 天気予報">
+    <meta name="author" content="Kiku">
     <link rel="stylesheet" href="./styles/main.css">
     <script type="text/javascript" src="./scripts/data.js" ></script>
     <script type="text/javascript" src="./scripts/lang.js" ></script>
@@ -14,29 +17,30 @@
     <link rel="icon" type="image/png" href="./images/rain.png">
   </head>
   <body id="main">
-    <h1 class="centerText"><label id="ffxivWeatherForecastLabel"></label></h1>
+    <h1 class="center-text no-margin-bottom"><label id="ffxivWeatherForecastLabel"></label></h1>
+    <div class="center-text default-margin-bottom faded-text">Up-to-date as of patch 6.0</div>
 
-    <div class="centerText default-margin-bottom">
+    <div class="center-text default-margin-bottom">
       <button class="btn" onclick="langChangeHandler('en')">English</button>
       <button class="btn" onclick="langChangeHandler('ja')">日本語</button>
     </div>
     
-    <div class="centerText default-margin-bottom">
+    <div class="center-text default-margin-bottom">
       <div><strong class="default-margin-right"><label id="areaLabel"></label></strong></div>
       <select class="form-select" id="areaSelect" onchange="onAreaChangeHandler(this)"></select>
     </div>
 
-    <div class="centerText default-margin-bottom">
+    <div class="center-text default-margin-bottom">
       <strong><label id="targetWeatherLabel"></label></strong>
       <div id="targetWeatherOptions" class="flexbox flexbox-horizontal-center"></div>
     </div>
 
-    <div class="centerText default-margin-bottom">
+    <div class="center-text default-margin-bottom">
       <strong><label id="precedingWeatherLabel"></label></strong>
       <div id="precedingWeatherOptions" class="flexbox flexbox-horizontal-center"></div>
     </div>
 
-    <div class="centerText default-margin-bottom">
+    <div class="center-text default-margin-bottom">
       <div><strong><label id="timeLabel"></label></strong></div>
       <div class="flexbox flexbox-horizontal-center">
         <label for="start00" class="form-checkbox default-margin-right">
@@ -58,13 +62,13 @@
       
     </div>
 
-    <div class="centerText">
+    <div class="center-text">
       <button class="btn btn-primary" id="addWeatherConditionsButton" onclick="addWeatherConditions()"></button>
     </div>
 
     <hr class="horizontalHalfWidth">
 
-    <table class="centerTable table table-striped table-hover resultTable default-margin-bottom">
+    <table class="center-table table table-striped table-hover resultTable default-margin-bottom">
       <thead>
         <tr>
           <th><label id="areaConditionsHeader"></label></th>
@@ -80,7 +84,7 @@
     <hr class="horizontalHalfWidth">
 
     <div class="flexbox flexbox-horizontal-center">
-      <div class="centerText accordion">
+      <div class="center-text accordion">
         <input type="checkbox" id="accordion-advanced" name="accordion-checkbox" hidden>
         <label class="accordion-header" for="accordion-advanced">
           <i class="icon icon-arrow-right mr-1"></i>
@@ -108,11 +112,11 @@
     </div>
     
 
-    <div class="centerText">
+    <div class="center-text">
       <button class="btn btn-primary" id="findWeatherButton" onclick="findWeatherOnClickHandler()"></button>
     </div>
 
-    <table class="centerTable table table-striped table-hover resultTable default-margin-bottom">
+    <table class="center-table table table-striped table-hover resultTable default-margin-bottom">
       <thead>
         <tr>
           <th><label id="areaHeader"></label></th>
@@ -126,7 +130,7 @@
     </table>
     <script type="text/javascript" src="./scripts/main.js" ></script>
 
-    <footer class="centerText default-margin-bottom">
+    <footer class="center-text default-margin-bottom">
       <div>Created by <a href="https://na.finalfantasyxiv.com/lodestone/character/11519702/">Kiku Ichimonji</a> @ Kujata</div>
       <div>Suggestions or feedback: <a href="https://github.com/Kikugumo/FFXIV-Weather-Forecast/issues">Github</a></div>
     </footer>

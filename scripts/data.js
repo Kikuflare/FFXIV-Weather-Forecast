@@ -409,6 +409,59 @@ const weatherData = {
     { "name": "clouds", "chance": 20 },
     { "name": "fairSkies", "chance": 60 },
     { "name": "clearSkies", "chance": 20 }
+  ],
+  "radzAtHan": [
+    { "name": "fog", "chance": 10 },
+    { "name": "rain", "chance": 15 },
+    { "name": "clearSkies", "chance": 15 },
+    { "name": "fairSkies", "chance": 40 },
+    { "name": "clouds", "chance": 20 }
+  ],
+  "thavnair": [
+    { "name": "fog", "chance": 10 },
+    { "name": "rain", "chance": 10 },
+    { "name": "showers", "chance": 5 },
+    { "name": "clearSkies", "chance": 15 },
+    { "name": "fairSkies", "chance": 40 },
+    { "name": "clouds", "chance": 20 }
+  ],
+  "garlemald": [
+    { "name": "snow", "chance": 45 },
+    { "name": "thunder", "chance": 5 },
+    { "name": "rain", "chance": 5 },
+    { "name": "fog", "chance": 5 },
+    { "name": "clouds", "chance": 25 },
+    { "name": "fairSkies", "chance": 10 },
+    { "name": "clearSkies", "chance": 5 }
+  ],
+  "oldSharlayan": [
+    { "name": "clearSkies", "chance": 10 },
+    { "name": "fairSkies", "chance": 40 },
+    { "name": "clouds", "chance": 20 },
+    { "name": "fog", "chance": 15 },
+    { "name": "snow", "chance": 15 }
+  ],
+  "labyrinthos": [
+    { "name": "clearSkies", "chance": 15 },
+    { "name": "fairSkies", "chance": 45 },
+    { "name": "clouds", "chance": 25 },
+    { "name": "rain", "chance": 15 }
+  ],
+  "mareLamentorum": [
+    { "name": "umbralWind", "chance": 15 },
+    { "name": "moonDust", "chance": 15 },
+    { "name": "fairSkies", "chance": 70 }
+  ],
+  "ultimaThule": [
+    { "name": "astromagneticStorm", "chance": 15 },
+    { "name": "fairSkies", "chance": 70 },
+    { "name": "umbralWind", "chance": 15 }
+  ],
+  "elpis": [
+    { "name": "clouds", "chance": 25 },
+    { "name": "umbralWind", "chance": 15 },
+    { "name": "fairSkies", "chance": 45 },
+    { "name": "clearSkies", "chance": 15 }
   ]
 };
 
@@ -465,5 +518,13 @@ const areaData = {
   "amhAraeng": 'norvrandt',
   "ilMheg": 'norvrandt',
   "theRaktikaGreatwood": 'norvrandt',
-  "theTempest": 'norvrandt'
+  "theTempest": 'norvrandt',
+  "radzAtHan": 'ilsabard',
+  "thavnair": 'ilsabard',
+  "garlemald": 'ilsabard',
+  "oldSharlayan": 'other',
+  "labyrinthos": 'other',
+  "mareLamentorum": 'other',
+  "ultimaThule": 'other',
+  "elpis": 'other'
 };

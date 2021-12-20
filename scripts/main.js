@@ -309,7 +309,7 @@ const renderResults = results => {
     const tableRow = document.createElement('tr');
     const noResultsFound = document.createElement('td');
     noResultsFound.colSpan = 5;
-    noResultsFound.classList.add('centerText');
+    noResultsFound.classList.add('center-text');
     noResultsFound.innerHTML = langMap[selectedLang].web.noResultsFoundLabel;
 
     tableRow.appendChild(noResultsFound);
@@ -552,7 +552,7 @@ const renderConditions = conditions => {
     const tableRow = document.createElement('tr');
     const noConditionsMessage = document.createElement('td');
     noConditionsMessage.colSpan = 5;
-    noConditionsMessage.classList.add('centerText');
+    noConditionsMessage.classList.add('center-text');
     noConditionsMessage.innerHTML = langMap[selectedLang].web.noConditionsMessage;
 
     tableRow.appendChild(noConditionsMessage);
@@ -580,6 +580,16 @@ const getStartDate = () => {
   }
 };
 
+/**
+ * For debugging at the start of an expansion.
+ */
+const printNextFourWeatherValues = () => {
+  console.log(calculateWeatherValue(Date.now()));
+  console.log(calculateWeatherValue(Date.now() + EORZEA_8_HOUR));
+  console.log(calculateWeatherValue(Date.now() + EORZEA_8_HOUR * 2));
+  console.log(calculateWeatherValue(Date.now() + EORZEA_8_HOUR * 3));
+};
+
 render(selectedLang);
 
 // Attach handlers to inputs
@@ -592,3 +602,6 @@ const maximumCyclesInput = document.getElementById('maximumCycles');
 maximumCyclesInput.onchange = event => {
   localStorage.setItem('maximumCycles', event.target.value);
 };
+
+// See you in 7.0!
+// printNextFourWeatherValues();

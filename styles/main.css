@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-.centerText {
+.center-text {
   text-align: center;
 }
 
@@ -22,11 +22,15 @@
   margin-bottom: 10px;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
 .default-margin-right {
   margin-right: 10px;
 }
 
-.centerTable {
+.center-table {
   margin-left: auto;
   margin-right: auto;
 }
@@ -53,4 +57,8 @@
 
 #areaSelect {
   width: 300px;
+}
+
+.faded-text {
+  color: #808080;
 }
