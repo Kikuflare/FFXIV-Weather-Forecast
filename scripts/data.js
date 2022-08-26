@@ -534,5 +534,6 @@ const areaData = {
   "labyrinthos": 'other',
   "mareLamentorum": 'other',
   "ultimaThule": 'other',
-  "elpis": 'other'
+  "elpis": 'other',
+  "unnamedIsland": 'other'
 };
