@@ -76,7 +76,8 @@ const langMap = {
       labyrinthos: 'Labyrinthos',
       mareLamentorum: 'Mare Lamentorum',
       ultimaThule: 'Ultima Thule',
-      elpis: 'Elpis'
+      elpis: 'Elpis',
+      unnamedIsland: "Unnamed Island"
     },
     weather: {
       clouds: 'Clouds',
@@ -188,7 +189,8 @@ const langMap = {
       labyrinthos: 'ラヴィリンソス',
       mareLamentorum: '嘆きの海',
       ultimaThule: 'ウルティマ・トゥーレ',
-      elpis: 'エルピス'
+      elpis: 'エルピス',
+      unnamedIsland: "名もなき島"
     },
     weather: {
       clouds: '曇り',
