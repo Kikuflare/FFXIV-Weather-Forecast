@@ -463,7 +463,7 @@ const weatherData = {
     { "name": "fairSkies", "chance": 45 },
     { "name": "clearSkies", "chance": 15 }
   ],
-  "Unnamed Island": [
+  "unnamedIsland": [
     { "name": "clearSkies", "chance": 25 },
     { "name": "fairSkies", "chance": 45 },
     { "name": "clouds", "chance": 10 },
