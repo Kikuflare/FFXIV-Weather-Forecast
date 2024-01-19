@@ -119,12 +119,15 @@ const langMap = {
       currentWeatherHeader: 'Current Weather',
       eorzeaTimeHeader: 'Eorzea Time',
       localTimeHeader: 'Local Time',
+      advancedOptionsButtonLabel: 'Advanced Options',
       advancedOptionsLabel: 'Advanced Options',
       maximumNumberLabel: 'Maximum Number',
       maximumCyclesLabel: 'Maximum Cycles',
       customStartDateLabel: 'Custom Start Date',
       noResultsFoundLabel: 'No results found.',
-      noConditionsMessage: 'Please add a weather condition.'
+      noConditionsMessage: 'Please add a weather condition.',
+      initialResultsTableLabel: 'Click the Find Weather button to get started.',
+      closeButtonLabel: 'Close'
     }
   },
   ja: {
@@ -232,12 +235,15 @@ const langMap = {
       currentWeatherHeader: '現在の天候',
       eorzeaTimeHeader: 'エオルゼア時間',
       localTimeHeader: 'ローカル時間',
+      advancedOptionsButtonLabel: '詳細オプション',
       advancedOptionsLabel: '詳細オプション',
       maximumNumberLabel: '最大数',
       maximumCyclesLabel: '最大サイクル',
       customStartDateLabel: 'カスタム開始日',
       noResultsFoundLabel: '結果が見つかりませんでした。',
-      noConditionsMessage: '天気都合を追加してください。'
+      noConditionsMessage: '天気都合を追加してください。',
+      initialResultsTableLabel: '「天候を検索」ボタンをクリックしてください。',
+      closeButtonLabel: '閉じる'
     }
   }
 };

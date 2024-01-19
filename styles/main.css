@@ -22,10 +22,6 @@
   margin-bottom: 10px;
 }
 
-.no-margin-bottom {
-  margin-bottom: 0px;
-}
-
 .default-margin-right {
   margin-right: 10px;
 }
@@ -35,20 +31,13 @@
   margin-right: auto;
 }
 
-.horizontalHalfWidth {
-  width: 50%;
+.horizontal-divider {
+  width: 800px;
+  margin: 10px auto;
 }
 
 .small-margin-right {
   margin-right: 0.3em;
-}
-
-.resultTable {
-  max-width: 1000px;
-}
-
-.flexbox > img {
-  align-self: center;
 }
 
 .area-icon-rounded {
@@ -56,9 +45,13 @@
 }
 
 #areaSelect {
-  width: 300px;
+  max-width: 300px;
 }
 
 .faded-text {
   color: #808080;
+}
+
+td {
+  vertical-align: middle;
 }

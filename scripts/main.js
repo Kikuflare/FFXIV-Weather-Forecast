@@ -63,10 +63,16 @@ const renderLabels = lang => {
   document.getElementById('eorzeaTimeHeader').innerHTML = langMap[lang].web.eorzeaTimeHeader;
   document.getElementById('localTimeHeader').innerHTML = langMap[lang].web.localTimeHeader;
 
+  document.getElementById('advancedOptionsButtonLabel').innerHTML = langMap[lang].web.advancedOptionsButtonLabel;
   document.getElementById('advancedOptionsLabel').innerHTML = langMap[lang].web.advancedOptionsLabel;
   document.getElementById('maximumNumberLabel').innerHTML = langMap[lang].web.maximumNumberLabel;
   document.getElementById('maximumCyclesLabel').innerHTML = langMap[lang].web.maximumCyclesLabel;
   document.getElementById('customStartDateLabel').innerHTML = langMap[lang].web.customStartDateLabel;
+  document.getElementById('closeButtonLabel').innerHTML = langMap[lang].web.closeButtonLabel;
+
+  if (document.getElementById('initialResultsTableLabel')) {
+    document.getElementById('initialResultsTableLabel').innerHTML = langMap[lang].web.initialResultsTableLabel;
+  }
 
   // Don't render these if the area hasn't been selected yet
   if (document.getElementById('areaSelect').value) {
@@ -144,13 +150,13 @@ const renderWeatherCheckboxes = (id, lang, area) => {
       }
 
       // Create the checkbox
+      const checkboxContainer = document.createElement('div');
+      checkboxContainer.classList.add('form-check', 'default-margin-right');
       const checkboxElement = document.createElement('input');
       checkboxElement.type = 'checkbox';
       checkboxElement.id = name;
       checkboxElement.name = name;
-      checkboxElement.classList.add('small-margin-right', id);
-      const checkIconElement = document.createElement('i');
-      checkIconElement.classList.add('form-icon');
+      checkboxElement.classList.add('form-check-input', id);
 
       // Grab the weather icon
       const imageElement = document.createElement('img');
@@ -160,14 +166,14 @@ const renderWeatherCheckboxes = (id, lang, area) => {
       // Create the label
       const labelElement = document.createElement('label');
       labelElement.htmlFor = name;
-      labelElement.classList.add('default-margin-right', 'flexbox', 'form-checkbox');
-      labelElement.appendChild(checkboxElement);
-      labelElement.appendChild(checkIconElement);
+      labelElement.classList.add('flexbox', 'form-checkbox');
       labelElement.appendChild(imageElement);
       labelElement.innerHTML = labelElement.innerHTML + langMap[lang].weather[weatherName];
 
       // Add it to the page
-      divElement.appendChild(labelElement);
+      checkboxContainer.appendChild(checkboxElement);
+      checkboxContainer.appendChild(labelElement);
+      divElement.appendChild(checkboxContainer);
     }
   }
 };
@@ -193,6 +199,15 @@ const langChangeHandler = lang => {
 
     render(lang);
   }
+};
+
+/**
+ * Changes the colour mode of the web page
+ * @param {string} colour Either "light" or "dark"
+ */
+const colourModeChangeHandler = colourMode => {
+  const rootElement = document.getElementById("root");
+  rootElement.setAttribute("data-bs-theme", colourMode);
 };
 
 /**
@@ -290,6 +305,7 @@ const renderResults = results => {
       // Eorzea Time
       const eorzeaTimeCell = document.createElement('td');
       eorzeaTimeCell.innerHTML = entry.eorzeaTime;
+      eorzeaTimeCell.classList.add('center-text');
   
       // Local Time
       const localTimeCell = document.createElement('td');
@@ -501,6 +517,7 @@ const renderConditions = conditions => {
   
       // Preceding Weather
       const precedingWeatherCell = document.createElement('td');
+      precedingWeatherCell.classList.add('center-text');
   
       for (const weather of entry.precedingWeather) {
         const precedingWeatherImageElement = document.createElement('img');
@@ -512,6 +529,7 @@ const renderConditions = conditions => {
   
       // Target Weather
       const targetWeatherCell = document.createElement('td');
+      targetWeatherCell.classList.add('center-text');
   
       for (const weather of entry.targetWeather) {
         const targetWeatherImageElement = document.createElement('img');
@@ -523,11 +541,15 @@ const renderConditions = conditions => {
   
       // Eorzea Time
       const eorzeaTimeCell = document.createElement('td');
-      eorzeaTimeCell.innerHTML = entry.targetTime.join(', ');
+      const eorzeaTimeLabel = document.createElement('label');
+      eorzeaTimeCell.classList.add('center-text');
+      eorzeaTimeLabel.innerHTML = entry.targetTime.join(', ');
+      eorzeaTimeCell.appendChild(eorzeaTimeLabel);
   
       // Delete Button
       const deleteCell = document.createElement('td');
       const deleteButton = document.createElement('button');
+      deleteCell.classList.add('center-text');
       deleteButton.classList.add('btn', 'btn-error');
       deleteButton.innerHTML = '🗙';
       deleteButton.onclick = () => {
@@ -551,9 +573,11 @@ const renderConditions = conditions => {
     // Put a message in the table to inform the user that one or more conditions should be added
     const tableRow = document.createElement('tr');
     const noConditionsMessage = document.createElement('td');
+    const noConditionsMessageLabel = document.createElement('label');
     noConditionsMessage.colSpan = 5;
     noConditionsMessage.classList.add('center-text');
-    noConditionsMessage.innerHTML = langMap[selectedLang].web.noConditionsMessage;
+    noConditionsMessageLabel.innerHTML = langMap[selectedLang].web.noConditionsMessage;
+    noConditionsMessage.appendChild(noConditionsMessageLabel);
 
     tableRow.appendChild(noConditionsMessage);
     conditionsListBody.appendChild(tableRow);
