@@ -556,7 +556,7 @@ const renderConditions = conditions => {
       const deleteButton = document.createElement('button');
       deleteCell.classList.add('center-text');
       deleteButton.classList.add('btn', 'btn-error');
-      deleteButton.innerHTML = '🗙';
+      deleteButton.appendChild(renderDeleteIcon());
       deleteButton.onclick = () => {
         conditions.splice(index, 1);
         localStorage.setItem('savedConditions', JSON.stringify(conditions));
@@ -588,6 +588,26 @@ const renderConditions = conditions => {
     conditionsListBody.appendChild(tableRow);
   }
 };
+
+/**
+ * Renders the SVG icon for the delete button
+ */
+const renderDeleteIcon = () => {
+  const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const iconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+  iconSvg.setAttribute('width', '16');
+  iconSvg.setAttribute('height', '16');
+  iconSvg.setAttribute('fill', 'currentColor');
+  iconSvg.setAttribute('viewBox', '0 0 16 16');
+  iconSvg.classList.add('bi', 'bi-x-lg');
+
+  iconPath.setAttribute('d', 'M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z');
+  
+  iconSvg.appendChild(iconPath);
+
+  return iconSvg;
+}
 
 /**
  * Returns the unix timestamp of the current time, or on a specified date at
