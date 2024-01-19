@@ -170,7 +170,7 @@ const renderWeatherCheckboxes = (id, lang, area) => {
       // Create the label
       const labelElement = document.createElement('label');
       labelElement.htmlFor = name;
-      labelElement.classList.add('flexbox', 'form-checkbox');
+      labelElement.classList.add('form-checkbox');
       labelElement.appendChild(imageElement);
       labelElement.innerHTML = labelElement.innerHTML + langMap[lang].weather[weatherName];
 
@@ -282,7 +282,7 @@ const renderResults = results => {
       areaIconElement.classList.add('default-margin-right', 'area-icon-rounded');
       areaCellContents.appendChild(areaIconElement);
       areaCellContents.innerHTML = areaCellContents.innerHTML + langMap[selectedLang].area[entry.area];
-      areaCellContents.classList.add('flexbox');
+      areaCellContents.classList.add('d-flex', 'flex-wrap');
       areaCell.appendChild(areaCellContents);
 
       // Previous Weather
@@ -293,7 +293,7 @@ const renderResults = results => {
       previousWeatherImageElement.classList.add('small-margin-right');
       previousWeatherCellContents.appendChild(previousWeatherImageElement);
       previousWeatherCellContents.innerHTML = previousWeatherCellContents.innerHTML + langMap[selectedLang].weather[entry.previousWeather];
-      previousWeatherCellContents.classList.add('flexbox');
+      previousWeatherCellContents.classList.add('d-flex', 'flex-wrap');
       previousWeatherCell.appendChild(previousWeatherCellContents);
   
       // Current Weather
@@ -304,7 +304,7 @@ const renderResults = results => {
       currentWeatherImageElement.classList.add('small-margin-right');
       currentWeatherCellContents.appendChild(currentWeatherImageElement);
       currentWeatherCellContents.innerHTML = currentWeatherCellContents.innerHTML + langMap[selectedLang].weather[entry.currentWeather];
-      currentWeatherCellContents.classList.add('flexbox');
+      currentWeatherCellContents.classList.add('d-flex', 'flex-wrap');
       currentWeatherCell.appendChild(currentWeatherCellContents);
   
       // Eorzea Time
@@ -517,7 +517,7 @@ const renderConditions = conditions => {
       areaIconElement.classList.add('default-margin-right', 'area-icon-rounded');
       areaCellContents.appendChild(areaIconElement);
       areaCellContents.innerHTML = areaCellContents.innerHTML + langMap[selectedLang].area[entry.area];
-      areaCellContents.classList.add('flexbox');
+      areaCellContents.classList.add('d-flex', 'flex-wrap');
       areaCell.appendChild(areaCellContents);
   
       // Preceding Weather
