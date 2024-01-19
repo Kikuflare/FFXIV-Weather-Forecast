@@ -13,6 +13,10 @@ let searchResults = [];
  * @param {string} lang The language id
  */
 const render = lang => {
+  const rootElement = document.getElementById('root');
+  const colourMode = localStorage.getItem('colourMode') ? localStorage.getItem('colourMode') : 'dark';
+  rootElement.setAttribute("data-bs-theme", colourMode);
+
   renderAreaSelect(lang);
   renderLabels(lang);
 
@@ -208,6 +212,7 @@ const langChangeHandler = lang => {
 const colourModeChangeHandler = colourMode => {
   const rootElement = document.getElementById("root");
   rootElement.setAttribute("data-bs-theme", colourMode);
+  localStorage.setItem('colourMode', colourMode);
 };
 
 /**
