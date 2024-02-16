@@ -1,6 +1,6 @@
 # FFXIV-Weather-Forecast
 
-https://kikugumo.github.io/FFXIV-Weather-Forecast/index.html
+[Link to FFXIV Weather Forecast Website](https://kikuflare.github.io/FFXIV-Weather-Forecast/)
 
 
 Finds and displays weather in the game Final Fantasy XIV. This project was inspired by super-aardvark's [Weather Finder](https://super-aardvark.github.io/weather/) tool.
