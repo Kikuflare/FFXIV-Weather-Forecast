@@ -3,159 +3,335 @@
   <head>
     <title>FFXIV Weather Forecast</title>
 
-    <meta charset="UTF-8">
-    <meta name="description" content="Finds and displays weather in the MMORPG Final Fantasy XIV.">
-    <meta name="keywords" content="FFXIV, FF14, Weather, Forecast, Forecaster, 天気, 天気予報">
-    <meta name="author" content="Kiku">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Finds and displays weather in the MMORPG Final Fantasy XIV."
+    />
+    <meta
+      name="keywords"
+      content="FFXIV, FF14, Weather, Forecast, Forecaster, 天気, 天気予報"
+    />
+    <meta name="author" content="Kiku" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <script type="text/javascript" src="./scripts/data.js" ></script>
-    <script type="text/javascript" src="./scripts/lang.js" ></script>
-    <script type="text/javascript" src="./scripts/weather.js" ></script>
+    <script type="text/javascript" src="./scripts/data.js"></script>
+    <script type="text/javascript" src="./scripts/lang.js"></script>
+    <script type="text/javascript" src="./scripts/weather.js"></script>
 
-    <link rel="stylesheet" href="./styles/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="./images/rain.png">
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" type="image/png" href="./images/rain.png" />
   </head>
   <body id="main">
     <h1 class="center-text"><label id="ffxivWeatherForecastLabel"></label></h1>
-    <div class="modal fade" id="advancedOptionsModal" tabindex="-1" aria-labelledby="advancedOptionsModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="advancedOptionsModal"
+      tabindex="-1"
+      aria-labelledby="advancedOptionsModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="advancedOptionsModalLabel">
               <label id="advancedOptionsLabel"></label>
             </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
             <div class="container default-margin-bottom">
               <label id="maximumNumberLabel" for="maximumNumber"></label>
-              <input id="maximumNumber" type="number" class="form-control" value="10">
+              <input
+                id="maximumNumber"
+                type="number"
+                class="form-control"
+                value="10"
+              />
             </div>
             <div class="container default-margin-bottom">
               <label id="maximumCyclesLabel" for="maximumCycles"></label>
-              <input id="maximumCycles" type="number" class="form-control" value="100000">
+              <input
+                id="maximumCycles"
+                type="number"
+                class="form-control"
+                value="100000"
+              />
             </div>
             <div class="container">
               <div class="containerform-check">
-                <input class="form-check-input" type="checkbox" value="" id="customStartDateCheckbox">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="customStartDateCheckbox"
+                />
                 <label class="form-check-label" for="customStartDateCheckbox">
                   <span id="customStartDateLabel"></span>
                 </label>
               </div>
-              <input id="customStartDate" class="form-control" type="date">
+              <input id="customStartDate" class="form-control" type="date" />
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><label id="closeButtonLabel"></label></button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              <label id="closeButtonLabel"></label>
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="container text-center">
-      <div class="center-text faded-text default-cursor font-size-small">A tool by Kiku</div>
-      <div class="center-text default-margin-bottom faded-text default-cursor font-size-small"><em>2024-06-26: </em><a href="https://kikuflare.github.io/fishing-guide-surface-slap-edition/">Analyzing the effect of Surface Slap on big fish bite rates</a></div>
+      <div class="center-text faded-text default-cursor font-size-small">
+        A tool by Kiku
+      </div>
+      <div class="center-text faded-text default-cursor font-size-small">
+        <em
+          >2024-07-11: Added expansion selection and options for Dawntrail
+          areas</em
+        >
+      </div>
+      <div
+        class="center-text default-margin-bottom faded-text default-cursor font-size-small"
+      >
+        <em
+          >2024-06-26:
+          <a
+            href="https://kikuflare.github.io/fishing-guide-surface-slap-edition/"
+            >Analyzing the effect of Surface Slap on big fish bite rates</a
+          ></em
+        >
+      </div>
       <div class="btn-group default-margin-bottom">
-        <button class="btn btn-outline-secondary btn-sm" onclick="langChangeHandler('en')">English</button>
-        <button class="btn btn-outline-secondary btn-sm" onclick="langChangeHandler('ja')">日本語</button>
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          onclick="langChangeHandler('en')"
+        >
+          English
+        </button>
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          onclick="langChangeHandler('ja')"
+        >
+          日本語
+        </button>
       </div>
 
       <div class="btn-group default-margin-bottom">
-        <button class="btn btn-outline-secondary btn-sm" onclick="colourModeChangeHandler('light')">☀️ Light</button>
-        <button class="btn btn-outline-secondary btn-sm" onclick="colourModeChangeHandler('dark')">🌙 Dark</button>
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          onclick="colourModeChangeHandler('light')"
+        >
+          ☀️ Light
+        </button>
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          onclick="colourModeChangeHandler('dark')"
+        >
+          🌙 Dark
+        </button>
       </div>
     </div>
 
     <div class="center-text default-margin-bottom">
-      <div><strong><label id="areaLabel"></label></strong></div>
+      <div>
+        <strong><label id="expansionLabel"></label></strong>
+      </div>
       <div class="d-flex justify-content-center">
-        <select class="form-select" id="areaSelect" onchange="onAreaChangeHandler(this)"></select>
+        <select
+          class="form-select"
+          id="expansionSelect"
+          onchange="onExpansionChangeHandler(this)"
+        ></select>
+      </div>
+    </div>
+
+    <div class="center-text default-margin-bottom">
+      <div>
+        <strong><label id="areaLabel"></label></strong>
+      </div>
+      <div class="d-flex justify-content-center">
+        <select
+          class="form-select"
+          id="areaSelect"
+          onchange="onAreaChangeHandler(this)"
+        ></select>
       </div>
     </div>
 
     <div class="default-margin-bottom">
-      <div class="center-text"><strong><label id="targetWeatherLabel"></label></strong></div>
-      <div id="targetWeatherOptions" class="d-flex flex-wrap justify-content-center"></div>
+      <div class="center-text">
+        <strong><label id="targetWeatherLabel"></label></strong>
+      </div>
+      <div
+        id="targetWeatherOptions"
+        class="d-flex flex-wrap justify-content-center"
+      ></div>
     </div>
 
     <div class="default-margin-bottom">
-      <div class="center-text"><strong><label id="precedingWeatherLabel"></label></strong></div>
-      <div id="precedingWeatherOptions" class="d-flex flex-wrap justify-content-center"></div>
+      <div class="center-text">
+        <strong><label id="precedingWeatherLabel"></label></strong>
+      </div>
+      <div
+        id="precedingWeatherOptions"
+        class="d-flex flex-wrap justify-content-center"
+      ></div>
     </div>
 
     <div class="default-margin-bottom">
-      <div class="center-text"><strong><label id="timeLabel"></label></strong></div>
+      <div class="center-text">
+        <strong><label id="timeLabel"></label></strong>
+      </div>
       <div class="d-flex flex-wrap justify-content-center">
         <div class="form-check default-margin-right">
-          <input class="form-check-input" type="checkbox" value="" id="start00">
-          <label class="form-check-label" for="start00">
-            00:00 - 07:59
-          </label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="start00"
+          />
+          <label class="form-check-label" for="start00"> 00:00 - 07:59 </label>
         </div>
         <div class="form-check default-margin-right">
-          <input class="form-check-input" type="checkbox" value="" id="start08">
-          <label class="form-check-label" for="start08">
-            08:00 - 15:59
-          </label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="start08"
+          />
+          <label class="form-check-label" for="start08"> 08:00 - 15:59 </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="start16">
-          <label class="form-check-label" for="start16">
-            16:00 - 23:59
-          </label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="start16"
+          />
+          <label class="form-check-label" for="start16"> 16:00 - 23:59 </label>
         </div>
       </div>
     </div>
 
     <div class="center-text default-margin-bottom">
-      <button class="btn btn-primary btn-sm" id="addWeatherConditionsButton" onclick="addWeatherConditions()"></button>
+      <button
+        class="btn btn-primary btn-sm"
+        id="addWeatherConditionsButton"
+        onclick="addWeatherConditions()"
+      ></button>
     </div>
 
-    <hr class="horizontal-divider">
+    <hr class="horizontal-divider" />
 
     <table class="center-table table table-striped table-hover w-auto">
       <thead>
         <tr>
-          <th class="center-text" scope="col"><label id="showConditionsHeader"></label></th>
-          <th class="center-text" scope="col"><label id="areaConditionsHeader"></label></th>
-          <th class="center-text" scope="col"><label id="previousWeatherConditionsHeader"></label></th>
-          <th class="center-text" scope="col"><label id="targetWeatherConditionsHeader"></label></th>
-          <th class="center-text" scope="col"><label id="eorzeaTimeConditionsHeader"></label></th>
-          <th class="center-text" scope="col"><label id="deleteConditionsHeader"></label></th>
+          <th class="center-text" scope="col">
+            <label id="showConditionsHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="areaConditionsHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="previousWeatherConditionsHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="targetWeatherConditionsHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="eorzeaTimeConditionsHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="deleteConditionsHeader"></label>
+          </th>
         </tr>
       </thead>
       <tbody id="conditionsListBody"></tbody>
     </table>
 
-    <div class="center-text">
-      <button class="btn btn-primary btn-sm" id="findWeatherButton" onclick="findWeatherOnClickHandler()"></button>
-      <button id="advancedOptionsButtonLabel" type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#advancedOptionsModal"></button>
+    <div class="center-text default-margin-bottom">
+      <button
+        class="btn btn-primary btn-sm"
+        id="findWeatherButton"
+        onclick="findWeatherOnClickHandler()"
+      ></button>
+      <button
+        id="advancedOptionsButtonLabel"
+        type="button"
+        class="btn btn-secondary btn-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#advancedOptionsModal"
+      ></button>
     </div>
 
-    <table class="center-table table table-striped table-hover w-auto default-margin-bottom">
+    <table
+      class="center-table table table-striped table-hover w-auto default-margin-bottom"
+    >
       <thead>
         <tr>
-          <th class="center-text" scope="col"><label id="areaHeader"></label></th>
-          <th class="center-text" scope="col"><label id="previousWeatherHeader"></label></th>
-          <th class="center-text" scope="col"><label id="currentWeatherHeader"></label></th>
-          <th class="center-text" scope="col"><label id="eorzeaTimeHeader"></label></th>
-          <th class="center-text" scope="col"><label id="localTimeHeader"></label></th>
+          <th class="center-text" scope="col">
+            <label id="areaHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="previousWeatherHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="currentWeatherHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="eorzeaTimeHeader"></label>
+          </th>
+          <th class="center-text" scope="col">
+            <label id="localTimeHeader"></label>
+          </th>
         </tr>
       </thead>
       <tbody id="resultBody">
         <tr>
-          <td colspan="100%" class="center-text"><label id="initialResultsTableLabel"></label></td>
+          <td colspan="100%" class="center-text">
+            <label id="initialResultsTableLabel"></label>
+          </td>
         </tr>
       </tbody>
     </table>
-    <script type="text/javascript" src="./scripts/main.js" ></script>
+    <script type="text/javascript" src="./scripts/main.js"></script>
 
     <footer class="center-text default-margin-bottom faded-text default-cursor">
-      <div>Created by <a href="https://na.finalfantasyxiv.com/lodestone/character/11519702/">Kiku Ichimonji</a> @ Kujata</div>
-      <div>Suggestions or feedback: <a href="https://github.com/Kikuflare/FFXIV-Weather-Forecast/issues">Github</a></div>
+      <div>
+        Created by
+        <a href="https://na.finalfantasyxiv.com/lodestone/character/11519702/"
+          >Kiku Ichimonji</a
+        >
+        @ Kujata
+      </div>
+      <div>
+        Suggestions or feedback:
+        <a href="https://github.com/Kikuflare/FFXIV-Weather-Forecast/issues"
+          >Github</a
+        >
+      </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

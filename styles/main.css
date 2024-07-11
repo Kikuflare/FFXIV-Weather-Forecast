@@ -36,6 +36,10 @@
   border-radius: 5px;
 }
 
+#expansionSelect {
+  max-width: 300px;
+}
+
 #areaSelect {
   max-width: 300px;
 }
