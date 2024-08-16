@@ -5,10 +5,13 @@
 
 Finds and displays weather in the game Final Fantasy XIV. This project was inspired by super-aardvark's [Weather Finder](https://super-aardvark.github.io/weather/) tool.
 
-Currently looking for French, German, Korean, and Chinese translations. Interested translators should look in the [/scripts/lang.js](https://github.com/Kikugumo/FFXIV-Weather-Forecast/blob/master/scripts/lang.js) file for the text to be translated.
+Currently looking for French, German, and Korean translations. Interested translators should look in the [/scripts/lang.js](https://github.com/Kikuflare/FFXIV-Weather-Forecast/blob/2f39d5576a5032eb31e14466a917f83f9050a130/scripts/lang.js) file for the text to be translated.
 
 # User Guide
 ## Standard Options
+### Expansion
+Filters the area select to display only areas from the selected expansion.
+
 ### Area
 Selects an area to search weather windows in.
 
