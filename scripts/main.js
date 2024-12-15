@@ -551,11 +551,14 @@ const iterateConditions = (conditions, timestamp, weatherMap) => {
       continue;
     }
 
+    const weatherTable = weatherMap[entry.area];
+    const tableSize = weatherTable.length;
+
     const window = {
-      currentWeather: weatherMap[entry.area][calculateWeatherValue(timestamp)],
+      currentWeather: weatherTable[calculateWeatherValue(timestamp, tableSize)],
       previousWeather:
-        weatherMap[entry.area][
-          calculateWeatherValue(timestamp - EORZEA_8_HOUR)
+        weatherTable[
+          calculateWeatherValue(timestamp - EORZEA_8_HOUR, tableSize)
         ],
       eorzeaTime: convertToNearestEorzeanIntervalStart(timestamp),
     };

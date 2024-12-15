@@ -13,7 +13,7 @@ const EORZEA_DAY = 24 * 175 * 1000; // number of real life milliseconds in an Eo
  * Calulates the weather value given a timestamp
  * @param {number} time A unix timestamp in milliseconds
  */
-const calculateWeatherValue = time => {
+const calculateWeatherValue = (time, tableSize = 100) => {
   const eorzeanHoursFromEpoch = time / EORZEA_HOUR;
   const eorzeanDaysFromEpoch = time / EORZEA_DAY;
 
@@ -24,7 +24,7 @@ const calculateWeatherValue = time => {
   const step3 = ((step2 << 11) ^ step2) >>> 0;
   const step4 = ((step3 >>> 8) ^ step3) >>> 0;
 
-  return step4 % 100;
+  return step4 % tableSize;
 };
 
 // 00:00~07:59 is 8

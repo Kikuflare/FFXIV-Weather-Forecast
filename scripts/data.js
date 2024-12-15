@@ -5,7 +5,7 @@
  *
  * The order in which each weather is listed for an area is important.
  *
- * The chance value in each object for an area should sum up to 100.
+ * The chance value in each object for an area should (usually) sum up to 100.
  */
 
 const weatherData = {
@@ -191,6 +191,13 @@ const weatherData = {
     { name: "snow", chance: 60 },
     { name: "fairSkies", chance: 10 },
     { name: "clearSkies", chance: 5 },
+    { name: "clouds", chance: 15 },
+    { name: "fog", chance: 10 },
+  ],
+  empyreum: [
+    { name: "snow", chance: 5 },
+    { name: "fairSkies", chance: 20 },
+    { name: "clearSkies", chance: 40 },
     { name: "clouds", chance: 15 },
     { name: "fog", chance: 10 },
   ],
@@ -550,6 +557,7 @@ const areaData = {
   theGoblet: "uldah",
   morDhona: "other",
   ishgard: "ishgard",
+  empyreum: "ishgard",
   coerthasCentralHighlands: "ishgard",
   coerthasWesternHighlands: "ishgard",
   theSeaOfclouds: "ishgard",
@@ -626,6 +634,7 @@ const expansionData = {
   ],
   heavensward: [
     "ishgard",
+    "empyreum",
     "coerthasCentralHighlands",
     "coerthasWesternHighlands",
     "theSeaOfclouds",
