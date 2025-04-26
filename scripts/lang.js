@@ -87,6 +87,7 @@ const langMap = {
       shaaloani: "Shaaloani",
       heritageFound: "Heritage Found",
       livingMemory: "Living Memory",
+      sinusArdorum: "Sinus Ardorum",
     },
     expansion: {
       aRealmReborn: "A Realm Reborn",
@@ -222,6 +223,7 @@ const langMap = {
       shaaloani: "シャーローニ荒野（暂无翻译）",
       heritageFound: "ヘリテージファウンド（暂无翻译）",
       livingMemory: "リビング・メモリー（暂无翻译）",
+      sinusArdorum: "焦がれの入江（暂无翻译）",
     },
     expansion: {
       aRealmReborn: "重生之境",
@@ -357,6 +359,7 @@ const langMap = {
       shaaloani: "シャーローニ荒野",
       heritageFound: "ヘリテージファウンド",
       livingMemory: "リビング・メモリー",
+      sinusArdorum: "焦がれの入江",
     },
     expansion: {
       aRealmReborn: "新生エオルゼア",
