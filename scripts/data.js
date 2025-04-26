@@ -609,7 +609,7 @@ const areaData = {
   shaaloani: "tural",
   heritageFound: "tural",
   livingMemory: "other",
-  sinusArdorum: "other"
+  sinusArdorum: "other",
 };
 
 const expansionData = {
