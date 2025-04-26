@@ -530,6 +530,11 @@ const weatherData = {
     { name: "clouds", chance: 20 },
     { name: "fairSkies", chance: 60 },
   ],
+  sinusArdorum: [
+    { name: "umbralWind", chance: 15 },
+    { name: "moonDust", chance: 15 },
+    { name: "fairSkies", chance: 70 },
+  ],  
 };
 
 const areaData = {
@@ -604,6 +609,7 @@ const areaData = {
   shaaloani: "tural",
   heritageFound: "tural",
   livingMemory: "other",
+  sinusArdorum: "other"
 };
 
 const expansionData = {
@@ -689,5 +695,6 @@ const expansionData = {
     "shaaloani",
     "heritageFound",
     "livingMemory",
+    "sinusArdorum",
   ],
 };
