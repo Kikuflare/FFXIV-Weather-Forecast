@@ -531,9 +531,9 @@ const weatherData = {
     { name: "fairSkies", chance: 60 },
   ],
   sinusArdorum: [
-    { name: "umbralWind", chance: 15 },
     { name: "moonDust", chance: 15 },
     { name: "fairSkies", chance: 70 },
+    { name: "umbralWind", chance: 15 },
   ],  
 };
 
